@@ -1,0 +1,71 @@
+﻿
+@{
+    ViewData["Title"] = "Books";
+}
+@using  ILabrary.ModelViews.Libraries
+@model IEnumerable<BookViewModel>
+
+    <div class="test d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Books</h1>
+        @if (TempData["deleted"] != null && (bool)TempData["deleted"])
+        {
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Done!</strong> The book has been deleted successfully.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        }
+        <div class="btn-toolbar mb-2 mb-md-0">
+            <div class="btn-group mr-2">
+                <a asp-area="" asp-controller="Book" asp-action="Create" class="btn btn-sm btn-outline-secondary">
+                    <span data-feather="plus"></span>
+                </a>
+                <a asp-controller="Book" asp-action="Index" class="btn btn-sm btn-outline-secondary">
+                    <span data-feather="list"></span>
+                </a>
+                <a asp-controller="Book" asp-action="Grid" class="btn btn-sm btn-outline-secondary">
+                    <span data-feather="grid"></span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+<table class="table">
+    <thead class="thead-light">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(x => x.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(x => x.Barcode)
+            </th>
+            <th>
+                Available
+            </th>
+            <th>
+                Actions
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var book in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(x => book.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(x => book.Barcode)
+                </td>
+                <td>
+                   @Html.DisplayFor(x => book.IsAvailable)
+                </td>
+                <td>
+                    @Html.ActionLink("Update", "Update", new { id = book.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = book.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

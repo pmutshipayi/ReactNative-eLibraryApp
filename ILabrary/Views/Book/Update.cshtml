@@ -1,0 +1,122 @@
+﻿
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using  ILabrary.ModelViews.Libraries
+@model BookUpdateViewModel;
+
+@if ((bool)ViewData["exist"])
+{
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+        <div class="btn-toolbar mb-2 mb-md-0">
+            <a asp-area="" asp-controller="Book" asp-action="Index" class="btn btn-sm btn-outline-secondary">
+                <span data-feather="arrow-left"></span>
+            </a>
+
+            <h1 class="h4"></h1>
+
+            <div class="btn-group mr-2">
+
+            </div>
+
+        </div>
+        @if (TempData["updated"] != null)
+        {
+            @if ((bool)TempData["updated"])
+            {
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>Done!</strong> The book has been updated successfully.
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Hoops!</strong> The update failed.
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            }
+        }
+    </div>
+    <!--
+
+
+    -->
+    <form method="post" action="Update" enctype="multipart/form-data">
+        <fieldset>
+            @Html.HiddenFor(x => x.Id)
+            <div class="editor-label">
+                @Html.LabelFor(x => x.Name)
+            </div>
+            <div class="editor-label">
+                @Html.EditorFor(x => x.Name)<br>
+                @Html.ValidationMessageFor(x => x.Name)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(x => x.Barcode)
+            </div>
+            <div class="editor-label">
+                @Html.EditorFor(x => x.Barcode)<br>
+                @Html.ValidationMessageFor(x => x.Barcode)
+            </div>
+
+            <div class="editor-label">
+                Available
+            </div>
+            <div class="editor-label">
+                @Html.EditorFor(x => x.IsAvailable)<br>
+                @Html.ValidationMessageFor(x => x.Qty)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(x => x.Description)
+            </div>
+            <div class="editor-label">
+                @Html.TextAreaFor(x => x.Description)<br>
+                @Html.ValidationMessageFor(x => x.Description)
+            </div>
+            <div class="editor-label">
+                <p>Upload a picture:</p>
+                <input type="file" name="file">
+            </div>
+            <br />
+            <p>
+                <input type="submit" class="btn btn-primary" value="Update" />
+            </p>
+        </fieldset>
+    </form>
+}
+else
+{
+    <div class="col-md-12">
+        <div class="error-template" style="width:500px; margin-left:auto;margin-right:auto">
+            <h1>
+                Oops!
+            </h1>
+            <h2>
+                404 Not Found
+            </h2>
+            <div class="error-details">
+                Sorry, an error has occurred, Requested page not found!
+            </div>
+            <div class="error-actions">
+                <br><br />
+                <a asp-controller="Book" asp-action="Index" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-home"></span>
+                    Go back
+                </a>
+            </div>
+        </div>
+    </div>
+}
+<script src="~/js/father.js"></script>
+
+<script>
+    feather.replace()
+</script>

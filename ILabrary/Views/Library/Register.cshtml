@@ -1,0 +1,103 @@
+﻿@using  ILabrary.ModelViews.Libraries;
+@{
+    ViewData["Title"] = "Register";
+}
+@model LibraryCreateViewModel;
+
+<h1>Register</h1>
+<style>
+    .text-box, password {
+        width: 350px;
+       
+    }
+    label{
+         font-weight: 600
+    }
+
+    .field-validation-valid {
+        color: red
+    }
+</style>
+<form method="post" asp-action="CreateLibrary">
+    <fieldset style="        margin-left: auto;
+        margin-right: auto;
+        width: 500px">
+        <legend> Library information </legend>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Name)
+        </div>
+        <div class="editor-label">
+            @Html.EditorFor(x => x.Name) <br>
+            @Html.ValidationMessageFor(x => x.Name, "", new { style = "color:red" })
+        </div>
+
+        <div class="editor-label">
+            Unique ID
+        </div>
+        <div class="editor-label">
+            @Html.EditorFor(x => x.UniqueId) <br>
+            @Html.ValidationMessageFor(x => x.UniqueId, "", new { style = "color:red" })
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(x => x.Address)
+        </div>
+        <div class="editor-label">
+            @Html.TextAreaFor(x => x.Address, new { style = "width:350px" })<br>
+            @Html.ValidationMessageFor(x => x.Address, "", new { style = "color:red" })
+        </div>
+
+        <legend>Personal information</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(x => x.FirstName)
+        </div>
+        <div class="editor-label">
+            @Html.EditorFor(x => x.FirstName) <br>
+            @Html.ValidationMessageFor(x => x.FirstName, "", new { style = "color:red" })
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(x => x.LastName)
+        </div>
+        <div class="editor-label">
+            @Html.EditorFor(x => x.LastName) <br>
+            @Html.ValidationMessageFor(x => x.LastName, "", new { style = "color:red" })
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(x => x.Email)
+        </div>
+        <div class="editor-label">
+            @Html.EditorFor(x => x.Email) <br>
+            @Html.ValidationMessageFor(x => x.Email, "", new { style = "color:red" })
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(x => x.Username)
+        </div>
+        <div class="editor-label">
+            @Html.EditorFor(x => x.Username) @Html.Raw("@") <span id="unique_id_span"></span> <br>
+            @Html.ValidationMessageFor(x => x.Username, "", new { style = "color:red" })
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(x => x.Password)
+        </div>
+        <div class="editor-label">
+            @Html.PasswordFor(x => x.Password, new { style = "width:350px" }) <br>
+            @Html.ValidationMessageFor(x => x.Password, "", new { style = "color:red" })
+        </div>
+
+        <br />
+        <p>
+            <input type="submit" class="btn btn-primary" value="Register" />
+        </p>
+    </fieldset>
+</form>
+<script>
+    $("#UniqueId").keyup(function () {
+        $("#unique_id_span").html($("#UniqueId").val());
+        console.log("value changed " + $("#UniqueId").val());
+    });
+</script>

@@ -1,0 +1,60 @@
+﻿@using ILabrary.Core.Extensions
+
+@{
+    ViewData["Title"] = "Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+        <div class="btn-toolbar mb-2 mb-md-0">
+            <a asp-area="" asp-controller="Book" asp-action="Index" class="btn btn-sm btn-outline-secondary">
+                <span data-feather="arrow-left"></span>
+            </a>
+
+            <h1 class="h4"></h1>
+
+            <div class="btn-group mr-2">
+                 
+            </div>
+
+        </div>
+        @if (TempData["updated"] != null)
+        {
+            @if ((bool)TempData["updated"])
+            {
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>Done!</strong> The book has been updated successfully.
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Hoops!</strong> The update failed.
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            }
+        }
+    </div>
+<div class="row">
+    <div class="col-3">
+        <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            <a asp-area="" asp-controller="Book" asp-action="Update" asp-action-id="@Url.ActionContext.RouteData.Values["id"]" id="update_link" class="nav-link @Html.IsSelected("Book" , "Update", "active")">Update</a>
+            <a asp-area="" asp-controller="Book" asp-action="Pictures" id="picture_link" class="nav-link @Html.IsSelected("Book", "Pictures", "active")">Pictures</a>
+            <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Reservations</a>
+            <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Allocations</a>
+        </div>
+    </div>
+    <div class="col-9">
+        @RenderBody()
+    </div>
+</div>
+
+<script>
+    /*$("#v-pills-home-tab").on('click', function () {
+        $("#v-pills-home").load("/Book/Update/4")
+    });*/
+</script>

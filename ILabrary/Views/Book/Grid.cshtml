@@ -1,0 +1,57 @@
+﻿
+@{
+    ViewData["Title"] = "Grid";
+}
+@using  ILabrary.ModelViews.Libraries
+@model IEnumerable<BookViewModel>
+@await Html.PartialAsync("BookTopBar.cshtml")
+
+<div class="album py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            @foreach (var book in Model)
+            {
+                <div class="col-md-3">
+                    <a asp-controller="Book" asp-action="Update" asp-route-id="@book.Id">
+                        <div class="card mb-3 shadow-sm">
+                            @{
+                                BookPictureViewModel image = null;
+                                if (book.Images.Any())
+                                {
+                                   image = book.Images.ToList()[book.Images.Count - 1];
+                                }
+                                string imagePath = "";
+                                if (image != null)
+                                {
+                                    imagePath = "/uploads/" + image.FullPath;
+                                }
+                            }
+                            @if (!string.IsNullOrEmpty(imagePath))
+                            {
+                                <img class="bd-placeholder-img card-img-top" width="100%" height="225" src="@Url.Content(imagePath)" />
+                            }
+                            else
+                            {
+                                <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c" /><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+                            }
+                            <div class="card-body">
+                                <p>
+                                    @Html.DisplayFor(x => book.Name)
+                                </p>
+                                @if (!string.IsNullOrWhiteSpace(book.Barcode))
+                                {
+                                    <span>
+                                        Barcode : @Html.DisplayFor(x => book.Barcode)
+                                    </span>
+                                }
+                                <p class="card-text">
+                                    @Html.DisplayFor(x => book.Description)
+                                </p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+</div>

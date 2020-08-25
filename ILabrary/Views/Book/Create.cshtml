@@ -1,0 +1,66 @@
+﻿
+@{
+    ViewData["Title"] = "Create new book";
+}
+@using  ILabrary.ModelViews.Libraries;
+@model BookCreateViewModel;
+
+
+@await Html.PartialAsync("BookTopBarBack.cshtml", "Create new book")
+
+
+<form method="post" action="Create" enctype="multipart/form-data">
+    <fieldset style="        margin-left: auto;
+        margin-right: auto;
+        width: 500px">
+
+        <div class="editor-label">
+            @Html.LabelFor(x => x.Name)
+        </div>
+        <div class="editor-label">
+            @Html.EditorFor(x => x.Name)<br>
+            @Html.ValidationMessageFor(x => x.Name, "", new { style = "color:red" })
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(x => x.Barcode)
+        </div>
+        <div class="editor-label">
+            @Html.EditorFor(x => x.Barcode)<br>
+            @Html.ValidationMessageFor(x => x.Barcode, "", new { style = "color:red" })
+        </div>
+
+        <div class="editor-label">
+            Is Available
+        </div>
+        <div class="editor-label">
+            @Html.EditorFor(x => x.IsAvailable)<br>
+            @Html.ValidationMessageFor(x => x.IsAvailable)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(x => x.Description)
+        </div>
+        <div class="editor-label">
+            @Html.TextAreaFor(x => x.Description, new { style = "width:350px" })<br>
+            @Html.ValidationMessageFor(x => x.Description)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(x => x.BookTags)
+        </div>
+        <div class="editor-label">
+            @Html.TextAreaFor(x => x.BookTags, new { style = "width:350px" })<br>
+            @Html.ValidationMessageFor(x => x.BookTags)
+        </div>
+
+        <div class="editor-label">
+            <p>Upload one or more files using this form:</p>
+            <input type="file" name="files" multiple>
+        </div>
+        <br />
+        <p>
+            <input type="submit" class="btn btn-primary" value="Add book" />
+        </p>
+    </fieldset>
+</form>
